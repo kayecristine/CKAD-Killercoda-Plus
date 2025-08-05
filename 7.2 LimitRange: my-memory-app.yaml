@@ -1,0 +1,12 @@
+# my-memory-app.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-memory-app
+spec:
+  containers:
+  - name: webapp-container
+    image: nginx:alpine
+    ports:
+    - containerPort: 80
+    # No resources.requests or resources.limits defined here yet
