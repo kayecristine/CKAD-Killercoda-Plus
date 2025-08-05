@@ -1,0 +1,16 @@
+# limitrange.yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: default-mem-limit
+spec:
+  limits:
+  - default:
+      memory: 512Mi       # Default request if not specified
+    defaultRequest:
+      memory: 256Mi       # Default limit if not specified
+    max:
+      memory: 1Gi         # Maximum memory a container can request/limit to
+    min:
+      memory: 64Mi          # Minimum memory a container can request/limit to
+    type: Container
