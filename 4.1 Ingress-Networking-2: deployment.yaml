@@ -1,0 +1,30 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-api-app-deployment
+  labels:
+    app: my-api-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-api-app
+  template:
+    metadata:
+      labels:
+        app: my-api-app
+    spec:
+      containers:
+      - name: api-container
+        image: nginx:alpine # Lightweight Nginx
+        ports:
+        - containerPort: 80 # Nginx default port
+        command: ["/bin/sh", "-c"] # Execute shell commands
+        args:
+          - |
+            # Create the directory and file for the /status endpoint
+            mkdir -p /usr/share/nginx/html/status;
+            echo '{"status": "API is operational"}' > /usr/share/nginx/html/status/index.html;
+            # Start Nginx in the foreground
+            nginx -g 'daemon off;';
