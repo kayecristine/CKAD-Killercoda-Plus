@@ -1,0 +1,16 @@
+# my-memory-app-fixed.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-memory-app # Keep the same name
+spec:
+  containers:
+  - name: webapp-container
+    image: nginx:alpine
+    ports:
+    - containerPort: 80
+    resources:
+      requests:
+        memory: 512Mi # 50% of 1Gi max
+      limits:
+        memory: 512Mi   # 50% of 1Gi max
