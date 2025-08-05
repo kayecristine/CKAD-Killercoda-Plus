@@ -1,0 +1,13 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-api-app-service
+spec:
+  selector:
+    app: my-api-app
+  ports:
+    - protocol: TCP
+      port: 80       # Service listens on port 80
+      targetPort: 80 # Maps to the container's port 80
+  type: ClusterIP
