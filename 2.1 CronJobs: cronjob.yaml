@@ -1,0 +1,18 @@
+# cronjob.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: my-timed-history-cronjob
+spec:
+  schedule: "*/30 * * * *"
+  successfulJobsHistoryLimit: 120 # Keep 120 completed jobs
+  failedJobsHistoryLimit: 92    # Keep 92 failed jobs
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: timer-job-container
+            image: busybox:1.36.1 # A lightweight image
+            command: ["sh", "-c", "echo 'Job started, sleeping for 8 seconds...'; sleep 8; echo 'Job finished.'"]
+          restartPolicy: OnFailure # Ensure the Job retries on failure, or just finishes
