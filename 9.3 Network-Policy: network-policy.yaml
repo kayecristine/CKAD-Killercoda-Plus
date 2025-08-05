@@ -1,0 +1,22 @@
+# network-policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: app-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      role: frontend # Only pods with this label can send/receive traffic
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: web
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: db
