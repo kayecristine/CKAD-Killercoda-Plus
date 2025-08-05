@@ -1,0 +1,20 @@
+# ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-webapp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx # Assuming Nginx Ingress Controller is installed
+  rules:
+  - host: app.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-webapp-service
+            port:
+              number: 8080 # <--- THIS IS THE ROOT CAUSE: Should be 80 (Service port)
