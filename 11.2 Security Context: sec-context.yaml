@@ -1,0 +1,11 @@
+# insert this to the existing deployment file
+spec:
+  containers:
+  - name: my-container
+    image: nginx:1.25.0
+    ports:
+    - containerPort: 80
+    securityContext: # Added security context
+      runAsUser: 1000 # Run as non-root user
+      capabilities:
+        add: ["NET_BIND_SERVICE"] # Add capability to bind to privileged ports
