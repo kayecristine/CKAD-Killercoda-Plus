@@ -1,0 +1,20 @@
+# ingress.yaml (PROBLEM STATE)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-api-app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: / # <--- THE ROOT CAUSE: This should be /status
+spec:
+  ingressClassName: nginx # Assuming Nginx Ingress Controller
+  rules:
+  - host: api.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix # Matches / and any subpaths like /abc
+        backend:
+          service:
+            name: my-api-app-service
+            port:
+              number: 80 # Correctly points to the Service's port
