@@ -1,0 +1,14 @@
+#insert this to the existing yaml file
+spec:
+  containers:
+  - name: my-container
+    image: nginx:alpine
+    ports:
+    - containerPort: 8081
+    command: ["sh", "-c", "echo 'OK' > /usr/share/nginx/html/healthz; nginx -g 'daemon off;';"]
+    livenessProbe: # Added liveness probe
+      httpGet:
+        path: /healthz
+        port: 8081
+      initialDelaySeconds: 5
+      periodSeconds: 5
